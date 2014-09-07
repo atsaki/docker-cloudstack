@@ -15,7 +15,14 @@ git clone https://github.com/atsaki/docker-cloudstack.git
 cd docker-cloudstack/simulator/4.4-forward
 ```
 
-3. Start simulator
+3. Download insecure key
+
+```sh
+curl -o insecure_key -fSL https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key
+chmod 600 insecure_key
+```
+
+4. Start simulator
 
 ```sh
 vagrant up --provider docker
@@ -30,13 +37,6 @@ vagrant up --provider docker
 ```
 
 * SSH login to the container
-
-You have to download insecure_key.
-
-```sh
-curl -o insecure_key -fSL https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key
-chmod 600 insecure_key
-```
 
 ```sh
 vagrant ssh
