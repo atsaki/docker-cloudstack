@@ -28,8 +28,8 @@ RUN (/usr/bin/mysqld_safe &); sleep 3; mysqladmin -u root -proot password ''
 RUN cd $HOME; git clone $CLOUDSTACK_REPO_URL; \
     cd $HOME/cloudstack; \
     git checkout $CLOUDSTACK_BRANCH; \
-    mvn clean install -P developer -Dsimulator -DskipTests
-    /usr/bin/mysqld_safe &; \
+    mvn clean install -P developer -Dsimulator -DskipTests; \
+    (/usr/bin/mysqld_safe &); \
     sleep 3; \
     mvn -Pdeveloper -pl developer -Ddeploydb; \
     mvn -Pdeveloper -pl developer -Ddeploydb-simulator; \
@@ -45,4 +45,4 @@ RUN chmod +x /etc/service/cloudstack_simulator/run
 # Regenerate ssh key and remove unnecessary files
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-CMD ["/sbin/my_init"]
+CMD ["/sbin/my_init", "--enable-insecure-key"]
