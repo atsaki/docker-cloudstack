@@ -35,6 +35,10 @@ RUN cd $HOME; git clone $CLOUDSTACK_REPO_URL; \
     mvn -Pdeveloper -pl developer -Ddeploydb-simulator; \
     mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION"
 
+# Change log level
+RUN sed -i -e 's/<param name="Threshold" value=".*"\/>/<param name="Threshold" value="DEBUG"\/>/g'  \
+      $HOME/cloudstack/client/tomcatconf/log4j-cloud.xml.in
+
 # Add runit scripts
 ADD etc/service/mysqld_safe/run /etc/service/mysqld_safe/run
 RUN chmod +x /etc/service/mysqld_safe/run
