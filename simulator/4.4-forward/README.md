@@ -5,9 +5,25 @@ some utilities.
 
 ## Usage
 
+### Use from Docker command
+
+1. Install Docker if they are not installed
+
+2. Pull Docker Image
+
+  ```sh
+  docker pull atsaki/cloudstack-simulator-4.4
+  ```
+
+3. Run the contanier
+
+  ```sh
+  docker run atsaki/cloudstack-simulator-4.4
+  ```
+
 ### Use from Vagrant
 
-1. Install Vagrant and Git if they are not installed
+1. Install Vagrant, Docker and Git if they are not installed
 
 2. Pull Docker Image
 
@@ -43,37 +59,28 @@ some utilities.
   vagrant ssh -c tail -f /var/log/cloudstack_simulator.log
   ```
 
-#### Supported commands
+7. Login
 
-* Start simulator
+  You can login to the container with following command.
 
-```sh
-vagrant up --provider docker
-```
+  ```sh
+  vagrant ssh -- -L 8080:localhost:8080
+  ```
 
-* SSH login to the container
+  You can open UI. Open "http://localhost:8080/client" on the host OS.
 
-```sh
-vagrant ssh
-```
+8. Stop, Restore, Destroy
 
-* Stop simulator
+  You can stop and restore the container.
 
-```sh
-vagrant halt
-```
-
-* Reset simulator
-
-```sh
-vagrant reload
-```
-
-* Destroy simulator
-
-```sh
-vagrant destroy
-```
+  ```sh
+  # Stop the container
+  vagrant halt
+  # Restore the container
+  vagrant reload
+  # Destroy the container
+  vagrant destroy
+  ```
 
 ## Notes
 
