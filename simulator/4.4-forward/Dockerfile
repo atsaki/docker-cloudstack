@@ -25,7 +25,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN (/usr/bin/mysqld_safe &); sleep 3; mysqladmin -u root -proot password ''
 
 # Checkout CloudStack and Build CloudStack Simulator
-RUN cd $HOME; git clone $CLOUDSTACK_REPO_URL; \
+RUN cd $HOME; \
+    git clone $CLOUDSTACK_REPO_URL; \
     cd $HOME/cloudstack; \
     git checkout $CLOUDSTACK_BRANCH; \
     mvn clean install -P developer -Dsimulator -DskipTests; \
@@ -38,6 +39,17 @@ RUN cd $HOME; git clone $CLOUDSTACK_REPO_URL; \
 # Change log level
 RUN sed -i -e 's/<param name="Threshold" value=".*"\/>/<param name="Threshold" value="DEBUG"\/>/g'  \
       $HOME/cloudstack/client/tomcatconf/log4j-cloud.xml.in
+
+# Install Marvin
+RUN cd $HOME/cloudstack; \
+    mvn -Pdeveloper -pl :cloud-apidoc; \
+    mvn -Pdeveloper -pl :cloud-marvin; \
+    cd $HOME/cloudstack/tools/marvin; \
+    python setup.py install
+
+# Install cloudmonkey
+RUN pip install cloudmonkey; \
+    cloudmonkey init
 
 # Add runit scripts
 ADD etc/service/mysqld_safe/run /etc/service/mysqld_safe/run
