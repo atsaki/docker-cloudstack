@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /root/cloudstack
+exec mvn -Dsimulator -pl client jetty:run > /var/log/cloudstack_simulator.log 2>&1
