@@ -59,6 +59,13 @@ some utilities.
   vagrant ssh -c tail -f /var/log/cloudstack_simulator.log
   ```
 
+  You can check wheter management server successfully get started with cloudmonkey.
+  If following command return admin user, management server successfully get started.
+
+  ```sh
+  vagrant ssh -c cloudmonkey list users
+  ```
+
 7. Login
 
   You can login to the container with following command.
@@ -81,6 +88,18 @@ some utilities.
   # Destroy the container
   vagrant destroy
   ```
+
+### Execute Marvin Tests
+
+Marvin is installed in the container.
+
+```sh
+cd /root/cloudstack
+# Deploy datacenter
+python tools/marvin/marvin/deployDataCenter.py -i setup/dev/advanced.cfg
+# Execute tests with nosetests
+nosetests --with-marvin --marvin-config=setup/dev/advanced.cfg -a tags=advanced,required_hardware=false --hypervisor=simulator test/integration/smoke
+```
 
 ## Notes
 
