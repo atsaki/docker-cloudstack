@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.15
+FROM phusion/baseimage:0.9.13
 
 ENV HOME /root
 ENV CLOUDSTACK_REPO_URL https://github.com/apache/cloudstack.git
