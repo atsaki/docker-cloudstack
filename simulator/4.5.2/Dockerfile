@@ -8,6 +8,7 @@ RUN echo 'mysql-server mysql-server/root_password password root' |  debconf-set-
       genisoimage \
       maven \
       openjdk-7-jdk \
+      openssh-client \
       supervisor \
       mysql-server ; \
     apt-get clean all ; \
